@@ -9,7 +9,7 @@ const { buildSlackAttachments, formatChannelName } = require('./src/utils');
     const status = core.getInput('status');
     const color = core.getInput('color');
     const messageId = core.getInput('message_id');
-    // const text = core.getInput('text');
+    const text = core.getInput('text');
     const token = process.env.SLACK_BOT_TOKEN;
     const slack = new WebClient(token);
 
@@ -30,7 +30,7 @@ const { buildSlackAttachments, formatChannelName } = require('./src/utils');
 
     const args = {
       channel: channelId,
-      // text,
+      text,
       attachments,
     };
 
