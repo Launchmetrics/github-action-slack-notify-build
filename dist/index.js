@@ -1081,21 +1081,6 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
       return;
     }
 
-    // if messageId is used (update), then try to get the actual data, like color and status
-    if (Boolean(messageId)) {
-      const result = await slack.client.conversations.history({
-        token: token,
-        channel: channel,
-        latest: messageId,
-        // Limit results
-        inclusive: true,
-        limit: 1
-      });
-
-      if (!Boolean(color)) color = result.messages[0].attachments.color;
-      if (!Boolean(status)) status = result.messages[0].attachments.status;
-    }
-
     const attachments = buildSlackAttachments({ status, color, github, text });
     const channelId = core.getInput('channel_id') || (await lookUpChannelId({ slack, channel }));
 
@@ -1139,31 +1124,6 @@ async function lookUpChannelId({ slack, channel }) {
   }
 
   return result;
-}
-
-// Fetch conversation history using the ID and a TS
-async function fetchMessage(channel_id, message_ts) {
-  try {
-    // Call the conversations.history method using the built-in WebClient
-    const result = await app.client.conversations.history({
-      // The token you used to initialize your app
-      token: token,
-      channel: channel_id,
-      // In a more realistic app, you may store ts data in a db
-      latest: message_ts,
-      // Limit results
-      inclusive: true,
-      limit: 1
-    });
-
-    // There should only be one result (stored in the zeroth index)
-    message = result.messages[0];
-    // Print message text
-    console.log(message.text);
-  }
-  catch (error) {
-    console.error(error);
-  }
 }
 
 
