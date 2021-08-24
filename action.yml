@@ -21,7 +21,7 @@ inputs:
     description: 'The ID of the existing Slack message to update.'
     required: false
   text:
-    description: 'Custom text'
+    description: 'Custom text to add in the slack notification.'
     required: false
 outputs:
   message_id:
