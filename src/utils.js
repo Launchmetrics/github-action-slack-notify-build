@@ -22,6 +22,15 @@ function buildSlackAttachments({ status, color, github, text }) {
           short: true,
         };
 
+  const moreInfoText =
+    text.length != 0
+    ? {
+        title: 'More info',
+        value: text,
+        short: true,
+      }
+      : {};
+
   return [
     {
       color,
@@ -43,15 +52,11 @@ function buildSlackAttachments({ status, color, github, text }) {
         },
         referenceLink,
         {
-          title: 'Event:',
+          title: 'Event',
           value: event,
           short: true,
         },
-        {
-          title: 'Report:',
-          value: text,
-          short: true,
-        }
+        moreInfoText,
       ],
       footer_icon: 'https://github.githubassets.com/favicon.ico',
       footer: `<https://github.com/${owner}/${repo} | ${owner}/${repo}>`,
