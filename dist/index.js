@@ -1096,11 +1096,10 @@ const danger = 'a30200';
         inclusive: true,
         limit: 1
       });
-      console.log(result.messages[0].attachments[0]);
-      console.log(result.messages[0].attachments[0].fields[0]);
-      console.log(result.messages[0].attachments[0].fields[0].status);
+      console.log(result.messages[0].attachments[0].fields[2]);
+      console.log(result.messages[0].attachments[0].fields[2].value);
       if (!Boolean(color)) color = result.messages[0].attachments[0].color;
-      if (!Boolean(status)) status = result.messages[0].attachments[0].fields[0].status;
+      if (!Boolean(status)) status = result.messages[0].attachments[0].fields[2].value;
       // {
       //   if (color == good) status = 'SUCCESS';
       //   else if (color == danger) status = 'FAILED';
