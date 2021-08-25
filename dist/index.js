@@ -1081,6 +1081,20 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
       return;
     }
 
+    // if messageId is used (update), then try to get the actual data, like color and status
+    if (Boolean(messageId)) {
+      const result = await slack.conversations.history({
+        // token: token,
+        channel: channel,
+        latest: messageId,
+        inclusive: true,
+        limit: 1
+      });
+
+      if (!Boolean(color)) color = result.messages[0].attachments.color;
+      if (!Boolean(status)) status = result.messages[0].attachments.status;
+    }
+
     const attachments = buildSlackAttachments({ status, color, github, text });
     const channelId = core.getInput('channel_id') || (await lookUpChannelId({ slack, channel }));
 

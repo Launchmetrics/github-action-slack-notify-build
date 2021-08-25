@@ -12,10 +12,10 @@ inputs:
     required: false
   status:
     description: 'The status to list in the update.'
-    required: true
+    required: false
   color:
     description: 'The color of the Slack attachment.'
-    required: true
+    required: false
     default: '#cccccc'
   message_id:
     description: 'The ID of the existing Slack message to update.'
