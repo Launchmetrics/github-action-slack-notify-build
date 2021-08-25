@@ -22,7 +22,7 @@ const { buildSlackAttachments, formatChannelName } = require('./src/utils');
     if (Boolean(messageId)) {
       console.log(messageId);
       const result = await slack.conversations.history({
-        // token: token,
+        token: token,
         channel: channel,
         latest: messageId,
         inclusive: true,
@@ -30,9 +30,11 @@ const { buildSlackAttachments, formatChannelName } = require('./src/utils');
       });
 
       if (!Boolean(color)) color = result.messages[0].attachments.color;
+      console.log(result.messages[0].attachments.color);
       console.log(color);
 
       if (!Boolean(status)) status = result.messages[0].attachments.status;
+      console.log(result.messages[0].attachments.status);
       console.log(status);
 
     }

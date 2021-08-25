@@ -1083,8 +1083,9 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
 
     // if messageId is used (update), then try to get the actual data, like color and status
     if (Boolean(messageId)) {
+      console.log(messageId);
       const result = await slack.conversations.history({
-        // token: token,
+        token: token,
         channel: channel,
         latest: messageId,
         inclusive: true,
@@ -1092,7 +1093,13 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
       });
 
       if (!Boolean(color)) color = result.messages[0].attachments.color;
+      console.log(result.messages[0].attachments.color);
+      console.log(color);
+
       if (!Boolean(status)) status = result.messages[0].attachments.status;
+      console.log(result.messages[0].attachments.status);
+      console.log(status);
+
     }
 
     const attachments = buildSlackAttachments({ status, color, github, text });
