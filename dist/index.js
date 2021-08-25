@@ -1095,13 +1095,13 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
       console.log(result.messages[0]);
       console.log("------");
       console.log(color);
-      if (!Boolean(color)) color = result.messages[0].attachments.color;
-      console.log(result.messages[0].attachments.color);
+      if (!Boolean(color)) color = result.messages[0].attachments[0].color;
+      console.log(result.messages[0].attachments[0].color);
       console.log(color);
       console.log("------");
       console.log(status);
-      if (!Boolean(status)) status = result.messages[0].attachments.status;
-      console.log(result.messages[0].attachments.status);
+      if (!Boolean(status)) status = result.messages[0].attachments[0].status;
+      console.log(result.messages[0].attachments[0].status);
       console.log(status);
 
     }
