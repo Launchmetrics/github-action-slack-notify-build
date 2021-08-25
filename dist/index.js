@@ -1083,12 +1083,13 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
 
     // if messageId is used (update), then try to get the actual data, like color and status
     if (Boolean(messageId)) {
-      console.log(messageId);
+      console.log("message id: " + messageId);
+      console.log("channel : " + channel);
       const result = await slack.conversations.history({
         token: token,
         channel: channel,
-        // latest: messageId,
-        // inclusive: true,
+        latest: messageId,
+        inclusive: true,
         limit: 1
       });
 
