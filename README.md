@@ -92,7 +92,7 @@ You can use the `success()` and `failure()` conditional checks within your workf
 
 ### `status`
 
-**Required** for first posting. The status to show for the action, e.g. `STARTED` or `FAILED`. If no status is passed when updating the message, it will set one depending on the color.
+**Required** for first posting. The status to show for the action, e.g. `STARTED` or `FAILED`. If no status is passed when updating the message, it will maintain the current one.
 
 ### `channel`
 
@@ -106,7 +106,7 @@ The ID of the channel to post the message to. **Required** if no `channel` is pr
 
 ### `color`
 
-The color to use for the notification. Can be a hex value or any [valid Slack color level](https://api.slack.com/reference/messaging/attachments#fields) (e.g. `good`). When updating the message, if no color is passed it will use the current one.
+The color to use for the notification. Can be a hex value or any [valid Slack color level](https://api.slack.com/reference/messaging/attachments#fields) (e.g. `good`). When updating the message, if no color is passed it will maintain the current one.
 
 ### `message_id`
 
@@ -118,7 +118,7 @@ message_id: ${{ steps.<your_first_slack_step_id>.outputs.message_id }}
 
 ### `text`
 
-Some text to add more info to the message. Check [reference](https://api.slack.com/reference/surfaces/formatting) to custom messages.
+Some text to add more info to the message. Check [reference](https://api.slack.com/reference/surfaces/formatting) to custom your text for Slack.
 
 ## Outputs
 

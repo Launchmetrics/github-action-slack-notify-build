@@ -33,13 +33,17 @@ const danger = 'a30200';
         inclusive: true,
         limit: 1
       });
+      console.log(result.messages[0].attachments[0]);
+      console.log(result.messages[0].attachments[0].fields[0]);
+      console.log(result.messages[0].attachments[0].fields[0].status);
       if (!Boolean(color)) color = result.messages[0].attachments[0].color;
-      if (!Boolean(status)) {
-        if (color == good) status = 'SUCCESS';
-        else if (color == danger) status = 'FAILED';
-        else if (color == warning) status = 'STARTING';
-        else status = 'UNKNOWN';
-      }
+      if (!Boolean(status)) status = result.messages[0].attachments[0].fields[0].status;
+      // {
+      //   if (color == good) status = 'SUCCESS';
+      //   else if (color == danger) status = 'FAILED';
+      //   else if (color == warning) status = 'STARTING';
+      //   else status = 'UNKNOWN';
+      // }
     }
 
     const attachments = buildSlackAttachments({ status, color, github, text });
