@@ -1066,6 +1066,10 @@ const github = __webpack_require__(469);
 const { WebClient } = __webpack_require__(114);
 const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
 
+const warning = 'daa038';
+const good = '2eb886';
+const danger = 'a30200';
+
 (async () => {
   try {
     const channel = core.getInput('channel');

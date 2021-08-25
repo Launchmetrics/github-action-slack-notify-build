@@ -3,6 +3,10 @@ const github = require('@actions/github');
 const { WebClient } = require('@slack/web-api');
 const { buildSlackAttachments, formatChannelName } = require('./src/utils');
 
+const warning = 'daa038';
+const good = '2eb886';
+const danger = 'a30200';
+
 (async () => {
   try {
     const channel = core.getInput('channel');
