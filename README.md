@@ -92,7 +92,7 @@ You can use the `success()` and `failure()` conditional checks within your workf
 
 ### `status`
 
-**Required** when posting a message. The status to show for the action, e.g. `STARTED` or `FAILED`. If no status is passed when updating the message, it will maintain the current one.
+**Required** when posting a new message. The status to show for the action, e.g. `SUCCESS`, `STARTED` or `FAILED`. If no status is passed when updating the message, it will maintain the current one.
 
 ### `channel`
 
@@ -106,7 +106,7 @@ The ID of the channel to post the message to. **Required** if no `channel` is pr
 
 ### `color`
 
-**Required** when posting a message. The color to use for the notification. Can be a hex value or any [valid Slack color level](https://api.slack.com/reference/messaging/attachments#fields) (e.g. `good`). When updating the message, if no color is passed it will maintain the current one.
+The color to use for the notification. Can be a hex value or any [valid Slack color level](https://api.slack.com/reference/messaging/attachments#fields) (e.g. `good`). If no color is passed, a value will be assigned depending on the status, and if no status is passed, will maintain the same.
 
 ### `message_id`
 

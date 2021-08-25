@@ -1069,12 +1069,12 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
 (async () => {
   try {
     const channel = core.getInput('channel');
-    let status = core.getInput('status');
-    let color = core.getInput('color');
     const messageId = core.getInput('message_id');
     const text = core.getInput('text');
     const token = process.env.SLACK_BOT_TOKEN;
     const slack = new WebClient(token);
+    let status = core.getInput('status');
+    let color = core.getInput('color');
 
     if (!channel && !core.getInput('channel_id')) {
       core.setFailed(`You must provider either a 'channel' or a 'channel_id'.`);
@@ -1082,29 +1082,26 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
     }
 
     const channelId = core.getInput('channel_id') || (await lookUpChannelId({ slack, channel }));
-
-    // if messageId is used (update), keep the same color and status if not modified
-    if (Boolean(messageId)) {
-      const result = await slack.conversations.history({
-        token: token,
-        channel: channelId,
-        latest: messageId,
-        inclusive: true,
-        limit: 1
-      });
-      if (!Boolean(color)) color = result.messages[0].attachments[0].color;
-      if (!Boolean(status)) status = result.messages[0].attachments[0].fields[2].value;
-    }
-
-    const attachments = buildSlackAttachments({ status, color, github, text });
-
     if (!channelId) {
       core.setFailed(`Slack channel ${channel} could not be found.`);
       return;
     }
 
-    const apiMethod = Boolean(messageId) ? 'update' : 'postMessage';
+    if (!messageId && !status) {
+      core.setFailed(`You must provide an status when creating a new message`);
+      return;
+    }
 
+    if (!status && !color) color = getStatusColor(status);
+
+    // if messageId is used (update), keep the same color and status if not modified
+    if (!messageId) {
+      const messageData = getMessage(slack, token, channelId, messageId);
+      if (!color) color = messageData.attachments[0].color;
+      if (!status) status = messageData.attachments[0].fields[2].value;
+    }
+
+    const attachments = buildSlackAttachments({ status, color, github, text });
     const args = {
       channel: channelId,
       attachments,
@@ -1114,6 +1111,7 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
       args.ts = messageId;
     }
 
+    const apiMethod = Boolean(messageId) ? 'update' : 'postMessage';
     const response = await slack.chat[apiMethod](args);
 
     core.setOutput('message_id', response.ts);
@@ -1138,6 +1136,28 @@ async function lookUpChannelId({ slack, channel }) {
   }
 
   return result;
+}
+
+async function getMessage({ slack, token, channelId, messageId }) {
+  let result = await slack.conversations.history({
+    token: token,
+    channel: channelId,
+    latest: messageId,
+    inclusive: true,
+    limit: 1
+  });
+
+  return result.messages[0];
+}
+
+function getStatusColor(status) {
+  let color;
+  if (status === 'SUCCESS') color = 'good'
+  else if (status === 'STARTING') color = 'warning'
+  else if (status === 'FAILURE') color = 'danger'
+  else color = '#cccccc';
+
+  return color;
 }
 
 
