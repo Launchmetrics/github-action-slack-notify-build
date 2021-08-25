@@ -38,7 +38,7 @@ const { buildSlackAttachments, formatChannelName } = require('./src/utils');
       console.log("------");
       console.log(status);
       if (!Boolean(status)) {
-        status = color === 'good' ? 'SUCCESS' : 'FAILED';
+        status = color === '2eb886' ? 'SUCCESS' : 'FAILED';
       }
       console.log(status);
 

@@ -1101,7 +1101,7 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
       console.log("------");
       console.log(status);
       if (!Boolean(status)) {
-        status = color === 'good' ? 'SUCCESS' : 'FAILED';
+        status = color === '2eb886' ? 'SUCCESS' : 'FAILED';
       }
       console.log(status);
 
