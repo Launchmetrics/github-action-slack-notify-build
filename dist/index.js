@@ -1092,6 +1092,7 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
         inclusive: true,
         limit: 1
       });
+      console.log(result.messages[0]);
       console.log("------");
       console.log(color);
       if (!Boolean(color)) color = result.messages[0].attachments.color;

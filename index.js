@@ -29,6 +29,7 @@ const { buildSlackAttachments, formatChannelName } = require('./src/utils');
         inclusive: true,
         limit: 1
       });
+      console.log(result.messages[0]);
       console.log("------");
       console.log(color);
       if (!Boolean(color)) color = result.messages[0].attachments.color;
