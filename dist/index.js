@@ -1066,10 +1066,6 @@ const github = __webpack_require__(469);
 const { WebClient } = __webpack_require__(114);
 const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
 
-const warning = 'daa038';
-const good = '2eb886';
-const danger = 'a30200';
-
 (async () => {
   try {
     const channel = core.getInput('channel');
@@ -1087,7 +1083,7 @@ const danger = 'a30200';
 
     const channelId = core.getInput('channel_id') || (await lookUpChannelId({ slack, channel }));
 
-    // if messageId is used (update), then try to get the actual data, like color and status
+    // if messageId is used (update), keep the same color and status if not modified
     if (Boolean(messageId)) {
       const result = await slack.conversations.history({
         token: token,
@@ -1096,16 +1092,8 @@ const danger = 'a30200';
         inclusive: true,
         limit: 1
       });
-      console.log(result.messages[0].attachments[0].fields[2]);
-      console.log(result.messages[0].attachments[0].fields[2].value);
       if (!Boolean(color)) color = result.messages[0].attachments[0].color;
       if (!Boolean(status)) status = result.messages[0].attachments[0].fields[2].value;
-      // {
-      //   if (color == good) status = 'SUCCESS';
-      //   else if (color == danger) status = 'FAILED';
-      //   else if (color == warning) status = 'STARTING';
-      //   else status = 'UNKNOWN';
-      // }
     }
 
     const attachments = buildSlackAttachments({ status, color, github, text });
