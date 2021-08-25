@@ -1075,17 +1075,16 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
     const text = core.getInput('text');
     const token = process.env.SLACK_BOT_TOKEN;
     const slack = new WebClient(token);
-    const channelId = core.getInput('channel_id') || (await lookUpChannelId({ slack, channel }));
 
     if (!channel && !core.getInput('channel_id')) {
       core.setFailed(`You must provider either a 'channel' or a 'channel_id'.`);
       return;
     }
 
+    const channelId = core.getInput('channel_id') || (await lookUpChannelId({ slack, channel }));
+
     // if messageId is used (update), then try to get the actual data, like color and status
     if (Boolean(messageId)) {
-      console.log("message id: " + messageId);
-      console.log("channelId : " + channelId);
       const result = await slack.conversations.history({
         token: token,
         channel: channelId,
@@ -1093,11 +1092,13 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
         inclusive: true,
         limit: 1
       });
-
+      console.log("------");
+      console.log(color);
       if (!Boolean(color)) color = result.messages[0].attachments.color;
       console.log(result.messages[0].attachments.color);
       console.log(color);
-
+      console.log("------");
+      console.log(status);
       if (!Boolean(status)) status = result.messages[0].attachments.status;
       console.log(result.messages[0].attachments.status);
       console.log(status);
