@@ -1069,8 +1069,8 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
 (async () => {
   try {
     const channel = core.getInput('channel');
-    const status = core.getInput('status');
-    const color = core.getInput('color');
+    let status = core.getInput('status');
+    let color = core.getInput('color');
     const messageId = core.getInput('message_id');
     const text = core.getInput('text');
     const token = process.env.SLACK_BOT_TOKEN;
@@ -1100,8 +1100,9 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
       console.log(color);
       console.log("------");
       console.log(status);
-      if (!Boolean(status)) status = result.messages[0].attachments[0].status;
-      console.log(result.messages[0].attachments[0].status);
+      if (!Boolean(status)) {
+        status = color === '2eb886' ? 'SUCCESS' : 'FAILED';
+      }
       console.log(status);
 
     }
