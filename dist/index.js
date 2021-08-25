@@ -1096,19 +1096,13 @@ const danger = 'a30200';
         inclusive: true,
         limit: 1
       });
-      console.log(result.messages[0]);
-      console.log("------");
-      console.log(color);
       if (!Boolean(color)) color = result.messages[0].attachments[0].color;
-      console.log(result.messages[0].attachments[0].color);
-      console.log(color);
-      console.log("------");
-      console.log(status);
       if (!Boolean(status)) {
-        status = color === '2eb886' ? 'SUCCESS' : 'FAILED';
+        if (color == good) status = 'SUCCESS';
+        else if (color == danger) status = 'FAILED';
+        else if (color == warning) status = 'STARTING';
+        else status = 'UNKNOWN';
       }
-      console.log(status);
-
     }
 
     const attachments = buildSlackAttachments({ status, color, github, text });
