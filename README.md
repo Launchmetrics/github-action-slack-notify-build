@@ -85,13 +85,14 @@ You can use the `success()` and `failure()` conditional checks within your workf
     channel: app-alerts
     status: FAILED
     color: danger
+    text: <https://github.com/|Failing tests can be found here>
 ```
 
 ## Inputs
 
 ### `status`
 
-**Required** The status to show for the action, e.g. `STARTED` or `FAILED`.
+**Required** for first posting. The status to show for the action, e.g. `STARTED` or `FAILED`. If no status is passed when updating the message, it will set one depending on the color.
 
 ### `channel`
 
@@ -101,11 +102,11 @@ _Note_: If your workspace has many channels, supplying only a `channel` may caus
 
 ### `channel_id`
 
-The ID of the channel to post the message to. **Required** if no `channel` is provided, or if you need to send to a DM.
+The ID of the channel to post the message to. **Required** if no `channel` is provided, or if you need to send to a DM. You can find the id with the API or in the url in Slack web.
 
 ### `color`
 
-The color to use for the notification. Can be a hex value or any [valid Slack color level](https://api.slack.com/reference/messaging/attachments#fields) (e.g. `good`). Defaults to `#cccccc`.
+The color to use for the notification. Can be a hex value or any [valid Slack color level](https://api.slack.com/reference/messaging/attachments#fields) (e.g. `good`). When updating the message, if no color is passed it will use the current one.
 
 ### `message_id`
 
@@ -114,6 +115,10 @@ The ID of a previous Slack message to update instead of posting a new message. T
 ```yaml
 message_id: ${{ steps.<your_first_slack_step_id>.outputs.message_id }}
 ```
+
+### `text`
+
+Some text to add more info to the message. Check [reference](https://api.slack.com/reference/surfaces/formatting) to custom messages.
 
 ## Outputs
 
