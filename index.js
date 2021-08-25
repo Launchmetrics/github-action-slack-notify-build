@@ -24,8 +24,8 @@ const { buildSlackAttachments, formatChannelName } = require('./src/utils');
       const result = await slack.conversations.history({
         token: token,
         channel: channel,
-        latest: messageId,
-        inclusive: true,
+        // latest: messageId,
+        // inclusive: true,
         limit: 1
       });
 

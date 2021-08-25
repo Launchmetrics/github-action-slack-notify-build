@@ -1087,8 +1087,8 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
       const result = await slack.conversations.history({
         token: token,
         channel: channel,
-        latest: messageId,
-        inclusive: true,
+        // latest: messageId,
+        // inclusive: true,
         limit: 1
       });
 
