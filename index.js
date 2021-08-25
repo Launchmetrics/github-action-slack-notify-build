@@ -12,6 +12,7 @@ const { buildSlackAttachments, formatChannelName } = require('./src/utils');
     const text = core.getInput('text');
     const token = process.env.SLACK_BOT_TOKEN;
     const slack = new WebClient(token);
+    const channelId = core.getInput('channel_id') || (await lookUpChannelId({ slack, channel }));
 
     if (!channel && !core.getInput('channel_id')) {
       core.setFailed(`You must provider either a 'channel' or a 'channel_id'.`);
@@ -21,10 +22,10 @@ const { buildSlackAttachments, formatChannelName } = require('./src/utils');
     // if messageId is used (update), then try to get the actual data, like color and status
     if (Boolean(messageId)) {
       console.log("message id: " + messageId);
-      console.log("channel : " + channel);
+      console.log("channelId : " + channelId);
       const result = await slack.conversations.history({
         token: token,
-        channel: channel,
+        channel: channelId,
         latest: messageId,
         inclusive: true,
         limit: 1
@@ -41,7 +42,6 @@ const { buildSlackAttachments, formatChannelName } = require('./src/utils');
     }
 
     const attachments = buildSlackAttachments({ status, color, github, text });
-    const channelId = core.getInput('channel_id') || (await lookUpChannelId({ slack, channel }));
 
     if (!channelId) {
       core.setFailed(`Slack channel ${channel} could not be found.`);
