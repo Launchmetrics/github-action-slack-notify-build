@@ -1095,7 +1095,7 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
     if (status && !color) color = getStatusColor(status);
 
     // if messageId is used (update), keep the same color and status if not modified
-    if (messageId) {
+    if (Boolean(messageId)) {
       const messageData = getMessage(slack, token, channelId, messageId);
       if (!color) color = messageData.attachments[0].color;
       if (!status) status = messageData.attachments[0].fields[2].value;
