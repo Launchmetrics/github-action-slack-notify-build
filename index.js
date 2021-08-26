@@ -33,9 +33,15 @@ const { buildSlackAttachments, formatChannelName } = require('./src/utils');
 
     // if messageId is used (update), keep the same color and status if not modified
     if (Boolean(messageId)) {
-      const messageData = getMessage(slack, token, channelId, messageId);
-      if (!color) color = messageData.attachments[0].color;
-      if (!status) status = messageData.attachments[0].fields[2].value;
+      const result = await slack.conversations.history({
+        token: token,
+        channel: channelId,
+        latest: messageId,
+        inclusive: true,
+        limit: 1
+      });
+      if (!color) color = result.messages[0].attachments[0].color;
+      if (!status) status = result.messages[0].attachments[0].fields[2].value;
     }
 
     const attachments = buildSlackAttachments({ status, color, github, text });
@@ -73,18 +79,6 @@ async function lookUpChannelId({ slack, channel }) {
   }
 
   return result;
-}
-
-async function getMessage({ slack, token, channelId, messageId }) {
-  let result = await slack.conversations.history({
-    token: token,
-    channel: channelId,
-    latest: messageId,
-    inclusive: true,
-    limit: 1
-  });
-
-  return result.messages[0];
 }
 
 function getStatusColor(status) {
