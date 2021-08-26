@@ -1092,7 +1092,7 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
       return;
     }
 
-    if (!status && !color) color = getStatusColor(status);
+    if (status && !color) color = getStatusColor(status);
 
     // if messageId is used (update), keep the same color and status if not modified
     if (!messageId) {
