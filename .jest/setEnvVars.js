@@ -1,1 +1,1 @@
-process.env["GITHUB_REPOSITORY"] = "launchmetrics/github-action-slack-notify-build";
+process.env["GITHUB_REPOSITORY"] = "voxmedia/github-action-slack-notify-build";
