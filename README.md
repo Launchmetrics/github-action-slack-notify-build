@@ -141,11 +141,14 @@ To use this GitHub Action, you'll need a [Slack bot token](https://api.slack.com
 
 In order to use your Slack App with this GitHub Action, be sure to enable the following OAuth scopes:
 
-| Scope           | Required?                                  |
-| --------------- | ------------------------------------------ |
-| `chat:write`    | Yes                                        |
-| `channels:read` | If using `channel` instead of `channel_id` |
-| `groups:read`   | If using `channel` instead of `channel_id` |
+| Scope              | Required?                                                                                                            |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| `chat:write`       | Yes                                                                                                                  |
+| `channels:read`    | If using `channel` instead of `channel_id`                                                                           |
+| `groups:read`      | If using `channel` instead of `channel_id`                                                                           |
+| `channels:history` | When updating a message without providing the color or the status, (also this requires the bot to be in the channel) |
+
+
 
 ## License
 

@@ -1368,7 +1368,7 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
     if (status && !color) color = getStatusColor(status);
 
     // if messageId is used (update), keep the same color and status if not modified
-    if (Boolean(messageId)) {
+    if (Boolean(messageId) && (!status || !color)) {
       const result = await slack.conversations.history({
         token: token,
         channel: channelId,
