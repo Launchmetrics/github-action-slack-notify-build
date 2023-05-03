@@ -32,7 +32,7 @@ const { buildSlackAttachments, formatChannelName } = require('./src/utils');
     if (status && !color) color = getStatusColor(status);
 
     // if messageId is used (update), keep the same color and status if not modified
-    if (Boolean(messageId)) {
+    if (Boolean(messageId) && (!status || !color)) {
       const result = await slack.conversations.history({
         token: token,
         channel: channelId,
@@ -69,7 +69,7 @@ async function lookUpChannelId({ slack, channel }) {
 
   // Async iteration is similar to a simple for loop.
   // Use only the first two parameters to get an async iterator.
-  for await (const page of slack.paginate('conversations.list', { types: 'public_channel, private_channel' })) {
+  for await (const page of slack.paginate('conversations.list', { types: 'public_channel, private_channel', limit: 1000 })) {
     // You can inspect each page, find your result, and stop the loop with a `break` statement
     const match = page.channels.find(c => c.name === formattedChannel);
     if (match) {

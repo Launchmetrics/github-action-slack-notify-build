@@ -23,7 +23,7 @@ function buildSlackAttachments({ status, color, github, text }) {
         };
 
   const moreInfoText =
-    text.length != 0
+    text
     ? {
         title: 'More info',
         value: text,
