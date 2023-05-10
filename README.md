@@ -7,7 +7,7 @@ A [Slack bot token](https://api.slack.com/docs/token-types) is required to use t
 ## Usage
 
 ```yaml
-uses: voxmedia/github-action-slack-notify-build@v1
+uses: Launchmetrics/github-action-slack-notify-build@v1
 with:
   channel: app-alerts
   status: STARTED
