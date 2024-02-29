@@ -8,6 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "20": "^3.1.9",
     "@actions/core": "^1.10.0",
     "@actions/github": "^5.1.1",
     "@slack/web-api": "^6.8.1"
